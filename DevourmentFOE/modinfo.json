@@ -1,0 +1,10 @@
+{
+  "id": "foxydroid_devourmentfoe",
+  "name": "Devourment: FOE",
+  "version": "1.0.0",
+  "authors": "Foxydroid",
+  "description": "Devourment mod add-on: Adds the Other Exit mechanic (alternative regurgitation from the lower body).",
+  "requirements": [],
+  "requirements_names": [],
+  "checksum_override_version": true
+}

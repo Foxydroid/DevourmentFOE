@@ -1,0 +1,16 @@
+# Target build folders
+bin/
+obj/
+
+# Visual Studio / Rider / MSBuild
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# VS Code
+.vscode/
+
+# Local referenced assemblies (do not distribute copyrighted game files)
+References/
