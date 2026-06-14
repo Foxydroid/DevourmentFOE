@@ -14,3 +14,6 @@ obj/
 
 # Local referenced assemblies (do not distribute copyrighted game files)
 References/
+
+# Source code game and mod Devourment
+Sources/

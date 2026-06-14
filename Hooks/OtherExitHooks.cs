@@ -572,7 +572,7 @@ namespace DevourmentFOE.Hooks
                 return;
             }
 
-            AbstractPhysicalObject readyPrey = null;
+            List<AbstractPhysicalObject> readyPreys = new List<AbstractPhysicalObject>();
             for (int i = 0; i < critRef.bellyCrits.Count; i++)
             {
                 var prey = critRef.bellyCrits[i];
@@ -609,9 +609,9 @@ namespace DevourmentFOE.Hooks
                         }
                     }
 
-                    if (preyState.otherDepth >= DEPTH_READY_THRESHOLD && readyPrey == null)
+                    if (preyState.otherDepth >= DEPTH_READY_THRESHOLD)
                     {
-                        readyPrey = prey;
+                        readyPreys.Add(prey);
                     }
                 }
                 else
@@ -628,7 +628,7 @@ namespace DevourmentFOE.Hooks
             bool holdingGrab = self.input[0].pckp;
             bool holdingOtherExit = holdingDown && holdingGrab;
 
-            if (holdingOtherExit && readyPrey != null)
+            if (holdingOtherExit && readyPreys.Count > 0)
             {
                 self.input[0].pckp = false;
 
@@ -649,7 +649,11 @@ namespace DevourmentFOE.Hooks
 
                     try
                     {
-                        DevourmentMain.RegurgitateThing(readyPrey, 80);
+                        foreach (var prey in readyPreys)
+                        {
+                            DevourmentMain.RegurgitateThing(prey, 80);
+                            prey.GetCritRefs().currentBellyStatus = DevourmentMain.CurrentBellyStatus.Held;
+                        }
                     }
                     finally
                     {
@@ -658,7 +662,6 @@ namespace DevourmentFOE.Hooks
                     }
 
                     state.tension = 0f;
-                    readyPrey.GetCritRefs().currentBellyStatus = DevourmentMain.CurrentBellyStatus.Held;
 
                     self.bodyChunks[0].vel.y += 8f;
                     self.room.PlaySound(SoundID.Slugcat_Terrain_Impact_Hard, self.mainBodyChunk);
